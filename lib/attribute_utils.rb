@@ -1,11 +1,16 @@
 module AttributeUtils
   module_function
 
-  def timestamp_attribute
-    now = Time.current
+  NOW = Time.current
+  def create_hash
     {
-      created_at: now,
-      updated_at: now
+      created_at: NOW
+    }
+  end
+
+  def update_hash
+    {
+      updated_at: NOW
     }
   end
 end
