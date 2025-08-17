@@ -1,5 +1,6 @@
 class Api::CourseEnrollmentsController < ApplicationController
   include CommonValidator
+
   before_action :ensure_user!
   before_action :ensure_enrollment!, only: %i[update destroy]
 
