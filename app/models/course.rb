@@ -6,5 +6,5 @@ class Course < ApplicationRecord
 
   has_one_attached :image
 
-  scope :by_id, ->(id) { where(id: id) }
+  scope :by_course_id, ->(id) { where(id: id) }
 end

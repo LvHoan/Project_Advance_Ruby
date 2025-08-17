@@ -1,43 +1,36 @@
 class Api::UsersController < ApplicationController
-  require 'aws-sdk-s3'
+  include CommonValidator
 
-  before_action :set_user, only: [:destroy, :update]
+  before_action :ensure_user!, only: %i[update destroy]
 
   def list
     @users = User.all
   end
 
-  def destroy
-    @user.destroy
-
-    @total = 1
-  end
-
   def create
-    user = User.new(user_params_with_avatar)
-    user.save
-
+    User.create!(user_params_with_avatar)
     @total = 1
   end
 
   def update
-    @user.update(user_params_with_avatar)
-
+    @user.update!(user_params_with_avatar)
     @total = 1
   end
 
-  private
-
-  def set_user
-    @user = User.find(params[:id])
+  def destroy
+    @user.destroy!
   end
+
+  private
 
   def user_params
     params.require(:user).permit(:name, :email)
   end
 
   def user_params_with_avatar
-    avatar_url = S3Uploader.upload_avatar(params[:user][:avatar]) if params[:user][:avatar].present?
-    user_params.merge(avatar_url: avatar_url)
+    avatar = params[:user][:avatar]
+    raise ActionController::BadRequest, I18n.t('message.fail_to_upload_avatar') unless avatar.present?
+
+    user_params.merge(avatar_url: S3Uploader.upload_avatar(avatar))
   end
 end

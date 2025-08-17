@@ -11,8 +11,5 @@ class S3Uploader
 
     object.put(body: file.tempfile, acl: "public-read")
     object.public_url
-  rescue => e
-    Rails.logger.error("S3 Upload Error: #{e.message}")
-    nil
   end
 end

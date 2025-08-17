@@ -1,26 +1,21 @@
 class Api::CourseEnrollmentsController < ApplicationController
-  before_action :set_user
+  include CommonValidator
+  before_action :ensure_user!
+  before_action :ensure_enrollment!, only: %i[update destroy]
 
   def update
-    enrollment = @user.course_enrollments.find(params[:id])
-
-    enrollment.update(course_enrollment_params)
-
+    @enrollment.update(course_enrollment_params)
     @total = 1
   end
 
   def destroy
-    enrollment = @user.course_enrollments.find(params[:id])
-
-    enrollment.destroy
-
-    @total = 1
+    @enrollment.destroy
   end
 
   private
 
-  def set_user
-    @user = User.find(params[:user_id])
+  def ensure_enrollment!
+    @enrollment = @user.course_enrollments.find(params[:id])
   end
 
   def course_enrollment_params

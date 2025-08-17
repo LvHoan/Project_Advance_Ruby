@@ -1,0 +1,10 @@
+en:
+  message:
+    not_found:
+      default: "Record not found"
+      user: "User not found"
+      course: "Course not found"
+      lesson: "Lesson not found"
+    validation_failed: "Validation failed"
+    internal_server_error: "Internal server error"
+    fail_to_upload_avatar: "Avatar upload failed"
