@@ -8,3 +8,5 @@ en:
     validation_failed: "Validation failed"
     internal_server_error: "Internal server error"
     fail_to_upload_avatar: "Avatar upload failed"
+    course_already_enrolled: |-
+      User already enroll course

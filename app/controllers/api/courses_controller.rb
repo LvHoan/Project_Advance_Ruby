@@ -13,7 +13,6 @@ class Api::CoursesController < ApplicationController
     ActiveRecord::Base.transaction do
       Course.import(records,
                     on_duplicate_key_update: %i[title description image_url updated_at])
-      enroll_new_courses(records)
     end
 
     @total = records.size
@@ -44,11 +43,5 @@ class Api::CoursesController < ApplicationController
         Course.new(attrs.merge(AttributeUtils.create_hash))
       end
     end
-  end
-
-  def enroll_new_courses(new_courses)
-    CourseEnrollment.import(new_courses.map do |course|
-      CourseEnrollment.new(user_id: @user.id, course_id: course.id, status: :active)
-    end)
   end
 end

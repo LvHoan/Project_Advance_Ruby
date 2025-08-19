@@ -25,14 +25,9 @@ class Api::LessonsController < ApplicationController
 
     lesson.destroy
     @total = 1
-
   end
 
   private
-
-  def ensure_course!
-    @course = @user.courses.by_course_id(params[:course_id])
-  end
 
   def lesson_data_params
     params.require(:lessons).map do |lesson|
