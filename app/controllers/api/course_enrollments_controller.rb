@@ -23,7 +23,7 @@ class Api::CourseEnrollmentsController < ApplicationController
   end
 
   def destroy
-    @enrollment.destroy
+    @enrollment.destroy!
   end
 
   private

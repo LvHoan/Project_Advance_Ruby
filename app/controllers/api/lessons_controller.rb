@@ -23,7 +23,7 @@ class Api::LessonsController < ApplicationController
     lesson = @course.lessons.by_lesson_id(params[:id]).first
     raise ActiveRecord::RecordNotFound, I18n.t("message.not_found.default") if lesson.blank?
 
-    lesson.destroy
+    lesson.destroy!
     @total = 1
   end
 

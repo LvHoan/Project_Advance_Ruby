@@ -5,6 +5,7 @@ module ErrorHandling
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity
     rescue_from ActionController::BadRequest, with: :render_bad_request
+    rescue_from ActiveRecord::RecordNotDestroyed, with: :render_unprocessable_entity
   end
 
   private
